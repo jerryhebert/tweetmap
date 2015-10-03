@@ -6,6 +6,10 @@ match your tags.
 
 # Installation
 
+## Plugins
+
+### Twitter
+
 Visit http://dev.twitter.com and create your twitter credentials for this
 application to use. Once you've fetched a consumer key, consumer secret,
 access token and access token secret, copy the example config file at

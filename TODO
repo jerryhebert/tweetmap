@@ -1,7 +1,13 @@
+FEATURES:
 [ ] set up twisted consumer as a plugin
 [ ] refactor for async management of multiple consumers
 [ ] add logging
 [ ] handle paged requests
 [ ] rename repo and docs to be more generic
 [ ] generalize consumer plugin config loading
+[ ] add reliability around consumers
+[ ] explore geohash_prefix behavior
+
+BUGS:
+[ ] use date time of the object being indexed, not the time we created the ES record
 

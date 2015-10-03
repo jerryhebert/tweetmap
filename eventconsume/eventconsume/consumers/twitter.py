@@ -29,14 +29,9 @@ class TwitterStreamListener(tweepy.StreamListener):
             # twitter API has deprecated the 'geo' field but coordinates gives us lon,lat instead
             # of lat,lon, so reverse it
             lon, lat = status.coordinates['coordinates']
-            event = Event(text=status.text, location=(lat, lon), creator=status.author.screen_name, site='twitter')
+            event = Event(message=status.text, location=(lat, lon), creator=status.author.screen_name,
+                          site='twitter', timestamp=status.timestamp_ms)
             self.success_callback(event)
-
-            #print 'Text:', status.text
-            #print 'Geo:', status.geo
-            #print 'Coordinates:', status.coordinates
-            #print 'Author:', status.author.screen_name
-            #print '*' * 50
 
     def on_error(self, status_code):
         self.error_callback(ConsumerError('HTTP error occurred',  status_code))
