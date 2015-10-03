@@ -1,0 +1,7 @@
+[ ] set up twisted consumer as a plugin
+[ ] refactor for async management of multiple consumers
+[ ] add logging
+[ ] handle paged requests
+[ ] rename repo and docs to be more generic
+[ ] generalize consumer plugin config loading
+
