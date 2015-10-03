@@ -26,11 +26,10 @@ class TwitterStreamListener(tweepy.StreamListener):
         if status.geo or status.coordinates:
             # normalize it into a model instance and pass it onto the success callback
             
-            # twitter API has deprecated the 'geo' field but coordinates gives us lon,lat instead
-            # of lat,lon, so reverse it
-            lon, lat = status.coordinates['coordinates']
-            event = Event(message=status.text, location=(lat, lon), creator=status.author.screen_name,
-                          site='twitter', timestamp=status.timestamp_ms)
+            # note `coordinates` here is (lon,lat) (GeoJSON)
+            event = Event(message=status.text, location=status.coordinates['coordinates'],
+                          creator=status.author.screen_name, site='twitter',
+                          timestamp=status.timestamp_ms)
             self.success_callback(event)
 
     def on_error(self, status_code):

@@ -29,7 +29,7 @@ case $1 in
         pip install -r requirements.txt
         ;;
     run)
-        echo 'running'
+        PYTHONPATH="." python eventserve/app.py
         ;;
     *)
         usage

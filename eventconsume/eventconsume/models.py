@@ -1,3 +1,5 @@
+import collections
+
 class Model(object):
     """
     The standard model that we use for any event that we receive.
@@ -8,8 +10,8 @@ class Event(Model):
     Store data about events.
     """
     def __init__(self, message, location, creator, site, timestamp):
-        if not isinstance(location, tuple):
-            raise ValueError('`location` property must be a (lat,long) tuple.')
+        if not isinstance(location, collections.Sequence) or len(location) != 2:
+            raise ValueError('`location` property must be a sequence of the form (lon,lat)')
 
         self.message = message       # the message for this event
         self.location = location     # the location where this event occurred
