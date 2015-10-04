@@ -2,7 +2,7 @@ FEATURES:
 [ ] set up twisted consumer as a plugin
 [ ] refactor for async management of multiple consumers
 [ ] add logging
-[ ] handle paged requests
+[x] handle paged requests
 [ ] rename repo and docs to be more generic
 [x] generalize consumer plugin config loading
 [ ] add reliability around consumers
@@ -10,7 +10,13 @@ FEATURES:
 [ ] add HAL flask plugin
 [x] set up nginx mapping so that eventserve can just bind to 127.0.0.1
 [ ] run flask through wsgi
+[ ] figure out how to clean up the form validation stuff in Flask
 
 BUGS:
 [x] use date time of the object being indexed, not the time we created the ES record
+[ ] radius+geohash doesn't completely return what I'm expecting for large precision values.
+    need to investigate potions for precision field and/or use geo_shape. I don't want to
+    reset the index to test this since I have a nice amount of test data currently. would
+    need to write a tool for this migration
+
 

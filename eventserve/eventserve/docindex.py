@@ -26,7 +26,7 @@ class DocIndex(object):
     other index types.
     """
     def __init__(self, index='events', doc_type='event'):
-        self.index = index
+        self.index_name = index
         self.doc_type = doc_type
         self.es = elasticsearch.client.Elasticsearch()
 
@@ -34,6 +34,7 @@ class DocIndex(object):
         if not page_info:
             page_info = PageInfo()
         query = self._query_dsl(tags, geocell)
+        print query
         return self.es.search(index='events', doc_type='event', body=query,
                               from_=page_info.start, size=page_info.size)
 
@@ -44,11 +45,6 @@ class DocIndex(object):
         base_query = {
             "query": {
                 "filtered": {
-                    "query": {
-                        "bool": {
-                            "must": tag_matches
-                        }
-                    },
                 }
             },
             "sort": {
@@ -58,6 +54,12 @@ class DocIndex(object):
             }
         }
 
+        if tag_matches:
+            base_query['query']['filtered']['query'] = {
+                "bool": {
+                    "must": tag_matches
+                }
+            }
         if geocell:
             base_query['query']['filtered']['filter'] = {
                 "geohash_cell": {
@@ -66,8 +68,19 @@ class DocIndex(object):
                     "location": {
                         "lat":  geocell.lat,
                         "lon": geocell.lon
-                    }
+                    },
+                    "neighbors": True
                 }
             }
 
         return base_query
+
+    def index(self, message, creator, location, site, timestamp, ttl=60*60*24*7):
+        self.es.index(self.index_name, self.doc_type, ttl=ttl, body={
+            'message': message,
+            'creator': creator,
+            'location': location,
+            'site': site,
+            'timestamp': timestamp
+        })
+

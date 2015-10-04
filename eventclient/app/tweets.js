@@ -36,8 +36,8 @@ $(document).ready(function () {
         var tags = $('#tags_input').val();
 
         $.get('http://jerryhebert.me/events_api/events', {
-            lat: 39.75944444, //lat,
-            lon: -84.19166667, //lon,
+            lat: lat,
+            lon: lon,
             distance: radius,
             tags: tags
         }, function (data) {
