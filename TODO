@@ -9,6 +9,7 @@ FEATURES:
 [ ] explore geohash_prefix behavior
 [ ] add HAL flask plugin
 [ ] set up nginx mapping so that eventserve can just bind to 127.0.0.1
+[ ] run flask through wsgi
 
 BUGS:
 [x] use date time of the object being indexed, not the time we created the ES record

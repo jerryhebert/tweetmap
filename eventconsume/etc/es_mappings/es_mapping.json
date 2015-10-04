@@ -12,7 +12,9 @@
             "location": {
                 "type": "geo_point",
                 "geohash": true,
-                "store": true
+                "store": true,
+                "geohash_prefix": true,
+                "geohash_precision": 10
             },
             "creator": {
                 "type": "string",
