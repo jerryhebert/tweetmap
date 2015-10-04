@@ -4,26 +4,18 @@ such that whenever we have an event ready, the reactor can handle
 this with the appropriate event persistence call.
 """
 
-# but in reality, right now we just hardcode twitter!
-import requests
-import json
-from eventconsume.consumers.twitter import TwitterConsumer
+from multiconsumer import MultiConsumer
 
-def success(event):
-    body = {
-        'message': event.message,
-        'creator': event.creator,
-        'location': event.location,
-        'site': event.site,
-        'timestamp': event.timestamp
-    }
-    response = requests.post('http://localhost:5000/events', data=json.dumps(body),
-                             headers={'Content-Type': 'application/json'})
+def load_consumer_plugins():
+    """
+    Ideally this should read all of the plugins in the right
+    location and return those classes. For now, it's just a
+    local import which returns the one consumer that we have.
+    """
+    from eventconsume.consumers.twitter import TwitterConsumer
+    return [TwitterConsumer]
 
-def failure(error):
-    print error
-
-t = TwitterConsumer()
-t.connect()
-t.start(success, failure)
+consumers = MultiConsumer(load_consumer_plugins())
+consumers.connect()
+consumers.start()
 
