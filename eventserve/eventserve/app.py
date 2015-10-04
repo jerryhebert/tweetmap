@@ -14,26 +14,32 @@ app = Flask(__name__)
 es = elasticsearch.client.Elasticsearch()
 
 query_template = """
-{
-  "from": %d,
-  "size": %d,
-  "query": {
-    "filtered": {
-      "filter": {
-        "geohash_cell": {
-          "_cache": true,
-          "precision": "%s",
-          "location": {
-            "lat":  %f,
-            "lon": %f
-          }
-        }
-      }
-    }
-  },
-  "sort": { "timestamp": { "order": "desc" } }
-}
 """
+
+def geocell_query(page_from, page_size, distance, lat, lon):
+    return {
+        "from": page_from,
+        "size": page_size,
+        "query": {
+            "filtered": {
+                "filter": {
+                    "geohash_cell": {
+                        "_cache": True,
+                        "precision": distance,
+                        "location": {
+                            "lat":  lat,
+                            "lon": lon
+                        }
+                    }
+                }
+            }
+        },
+        "sort": {
+            "timestamp": {
+                "order": "desc"
+            }
+        }
+    }
 
 @app.route('/')
 def root():
@@ -50,8 +56,8 @@ def events():
     if not lat or not lon:
         abort(400, 'Must specify both `lat` and `lon`')
 
-    query = query_template % (int(page_from), int(page_size), distance,
-                              float(lat), float(lon))
+
+    query = geocell_query(page_from, page_size, distance, lat, lon)
     raw_hits = es.search(index='events', doc_type='event', body=query)
 
     return jsonify({
