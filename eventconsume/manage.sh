@@ -30,6 +30,7 @@ case $1 in
         pip install -r requirements.txt
         ;;
     run)
+        source $VENV/bin/activate
         PYTHONPATH="." python eventconsume/app.py
         ;;
     *)

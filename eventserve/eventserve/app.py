@@ -1,13 +1,6 @@
 import elasticsearch
 from flask import Flask, redirect, request, jsonify, abort
 
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
-
-from flask.ext.restful import Api
-from flask.ext.restful.representations.json import output_json
-output_json.func_globals['settings'] = {'ensure_ascii': False, 'encoding': 'utf8'}
 
 app = Flask(__name__)
 
@@ -60,7 +53,6 @@ def events():
 
     if not lat or not lon:
         abort(400, 'Must specify both `lat` and `lon`')
-
 
     query = geocell_query(page_from, page_size, distance, lat, lon, tags.split())
     raw_hits = es.search(index='events', doc_type='event', body=query)
