@@ -34,7 +34,6 @@ class DocIndex(object):
         if not page_info:
             page_info = PageInfo()
         query = self._query_dsl(tags, geocell)
-        print query
         return self.es.search(index='events', doc_type='event', body=query,
                               from_=page_info.start, size=page_info.size)
 
