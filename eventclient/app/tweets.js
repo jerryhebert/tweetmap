@@ -33,11 +33,13 @@ $(document).ready(function () {
         var lat = $('#lat_input').val();
         var lon = $('#lon_input').val();
         var radius = $('#radius_input').val();
+        var tags = $('#tags_input').val();
 
         $.get('http://jerryhebert.me/events_api/events', {
             lat: 39.75944444, //lat,
             lon: -84.19166667, //lon,
-            distance: '50000000km' //radius
+            distance: radius,
+            tags: tags
         }, function (data) {
             updateStatusMessage(data.total);
             displayTweets(data.hits);

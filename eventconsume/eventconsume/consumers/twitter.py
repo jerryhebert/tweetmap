@@ -1,8 +1,5 @@
 #!/usr/bin/env python
-import yaml
 import tweepy
-import pprint
-import sys
 import logging
 import os.path
 
@@ -50,7 +47,7 @@ class TwitterStreamListener(tweepy.StreamListener):
 
 class TwitterConsumer(Consumer):
     def __init__(self):
-        self.config = self._load_config()
+        super(TwitterConsumer, self).__init__()
 
         try:
             self.consumer_key = self.config['consumer_key']
@@ -64,17 +61,6 @@ class TwitterConsumer(Consumer):
         self.stream = None # the stream for this twitter api
         self.auth = None   # twitter authentication credentials
 
-    def _load_config(self):
-        try:
-            base, fname = os.path.split(os.path.realpath(__file__))
-            fname = os.path.splitext(fname)[0] + '.yml'
-            with open(os.path.join(base, fname)) as config_file:
-                config = yaml.load(config_file.read())
-        except (IOError, ValueError) as exc:
-            raise # for now
-
-        return config
-        
     def connect(self):
         self.auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
         self.auth.set_access_token(self.access_token, self.access_token_secret)

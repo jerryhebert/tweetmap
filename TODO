@@ -4,11 +4,11 @@ FEATURES:
 [ ] add logging
 [ ] handle paged requests
 [ ] rename repo and docs to be more generic
-[ ] generalize consumer plugin config loading
+[x] generalize consumer plugin config loading
 [ ] add reliability around consumers
-[ ] explore geohash_prefix behavior
+[x] explore geohash_prefix behavior
 [ ] add HAL flask plugin
-[ ] set up nginx mapping so that eventserve can just bind to 127.0.0.1
+[x] set up nginx mapping so that eventserve can just bind to 127.0.0.1
 [ ] run flask through wsgi
 
 BUGS:
