@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Tweet maps</title>
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script src="tweets.js"></script>
+    </head>
+    <body>
+        <div id="tweetTemplate" style="visibility: hidden; background-color: #AAAAFF; padding: 5px; border-style: solid;">
+            <span id="creator"></span> - <span id="timestamp"></span><br>
+            <span id="message"></span>
+        </div>
+
+        <h1>Look for tweets in specific places!</h1>
+
+        <table cellspacing="0" cellpadding="0">
+            <tr>
+                <td colspan="2">
+                    <form id="searchForm">
+                    Lat: <input size="8" id="lat_input" type="text"></input>
+                    Lon: <input size="8" id="lon_input" type="text"></input>
+                    Radius(km): <input size="3" id="radius_input" type="text"></input>
+                    <input type="submit" name="Update">
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top">
+                    <img src="map.png">
+                </td>
+                <td id="tweets" style="height: 100px; overflow-y: auto;">
+                    ...
+                </td>
+            </tr>
+        </table>
+        <span id="status" />
+    </body>
+</html>
+
+
