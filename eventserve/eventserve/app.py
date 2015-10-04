@@ -1,6 +1,6 @@
 from flask import Flask, redirect, request, jsonify, abort
 
-from eventserve.docindex import DocIndex
+from eventserve.docindex import DocIndex, GeoCell, PageInfo
 
 app = Flask(__name__)
 
@@ -11,17 +11,19 @@ def root():
 @app.route('/events')
 def events():
     page_from = request.args.get('from', 0)
-    page_size = request.args.get('size', 250)
+    page_size = request.args.get('size', 20)
     lat = request.args.get('lat')
     lon = request.args.get('lon')
     distance = request.args.get('distance', '10km')
     tags = request.args.get('tags', [])
+    if tags:
+        tags = tags.split()
 
     if not lat or not lon:
         abort(400, 'Must specify both `lat` and `lon`')
 
     index = DocIndex()
-    raw_hits = index.search(tags.split(), lat, lon, distance)
+    raw_hits = index.search(tags, GeoCell(lat, lon, distance), PageInfo(page_from, page_size))
     return jsonify({
         "hits": [hit['_source'] for hit in raw_hits.get('hits', {}).get('hits', [])],
         "total": raw_hits['hits']['total']
