@@ -1,8 +1,60 @@
-.tweetTemplate {
-    visibility: hidden;
-    background-color: #CCDDFF;
-    border-style: solid;
-    border-color: white;
+html *
+{
+   font-family: Helvetica;
 }
 
+.tweetTemplate {
+    visibility: hidden;
+    background-color: #FFFFFF;
+    border-color: white;
+    width: 100%;
+}
+
+.tweets {
+    vertical-align: top;
+    height: 500px;
+    overflow-y: auto
+}
+
+.creator {
+    font-weight: bold;
+}
+
+.timestamp {
+    font-size: x-small;
+}
+
+.message {
+}
+
+.label {
+    font-size: x-large;
+    font-style: normal;
+    font-family: sans-serif;
+    vertical-align: middle;
+    text-align: left;
+    width: 30px;
+    padding: 5px;;
+}
+
+.table {
+    width: 100%;
+    display: table;
+}
+
+.table-row {
+    width: 100%;
+    display: table-row;
+}
+
+.table-cell {
+    vertical-align: top;
+    display: table-cell;
+}
+
+.label-cell {
+    vertical-align: top;
+    display: table-cell;
+    width: 30px;
+}
 

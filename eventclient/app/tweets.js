@@ -92,6 +92,7 @@ function displayTweets(tweets) {
 
         label++;
     });
+    updateStatusMessage(label - 1);
 }
 
 function updateTweets() {
@@ -116,7 +117,8 @@ function updateTweets() {
         lat: lat,
         lon: lng,
         distance: Math.trunc(radius).toString() + "km",
-        tags: tags
+        tags: tags,
+        size: 250
     }, function (data) {
         updateStatusMessage(data.total);
         displayTweets(data.hits);

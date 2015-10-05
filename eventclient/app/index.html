@@ -10,32 +10,42 @@
     </head>
     <body>
         <div id="tweetTemplate" class="tweetTemplate">
-            <span id="label"></span>  -  <span id="creator"></span> - <span id="timestamp"></span><br>
-            <span id="message"></span>
+            <div class="table">
+                <div class="table-row">
+                    <div class="label-cell">
+                        <div class="label" id="label"></div>
+                    </div>
+                    <div class="table-cell">
+                        <div class="creator" id="creator"></div>
+                        <div class="timestamp" id="timestamp"></div>
+                        <div class="message" id="message"></div>
+                    </div>
+                </div>
+             </div>
         </div>
 
         <h1>Look for tweets in specific places!</h1>
 
-        <table cellspacing="0" cellpadding="0">
-            <tr>
-                <td>
+        <div class="table">
+            <div class="table-row">
+                <div class="table-cell">
                     <form id="searchForm">
-                    Tags: <input size="16" id="tags_input" type="text" onChange="updateTweets()"></input>
+                    Filter: <input size="48" id="tags_input" type="text" onChange="updateTweets()">
                     </form>
-                <td>
-                    <span id="status" />
-                </td>
-                </td>
-            </tr>
-            <tr>
-                <td valign="top">
+                </div>
+                <div class="table-cell">
+                    <span id="status"></span>
+                </div>
+            </div>
+            <div class="table-row">
+                <div class="table-cell" width="500px">
                     <div style="width: 500px; height: 500px;" id="map"></div>
-                </td>
-                <td id="tweets" style="height: 100px; overflow-y: auto;">
-                    ...
-                </td>
-            </tr>
-        </table>
+                </div>
+                <div class="table-cell" width="100%">
+                    <div class="tweets" id="tweets"></div>
+                </div>
+            </div>
+        </div>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxNnmBhkZS1fqF_7cfQt1Uv0qsdkGrQxY&callback=initMap"
         async defer></script>
