@@ -31,7 +31,7 @@ case $1 in
         ;;
     run)
         source $VENV/bin/activate
-        PYTHONPATH="." python eventconsume/app.py
+        PYTHONPATH="." exec python eventconsume/app.py
         ;;
     *)
         usage

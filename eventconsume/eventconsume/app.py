@@ -5,6 +5,7 @@ this with the appropriate event persistence call.
 """
 
 from multiconsumer import MultiConsumer
+import logging
 
 def load_consumer_plugins():
     """
@@ -15,7 +16,14 @@ def load_consumer_plugins():
     from eventconsume.consumers.twitter import TwitterConsumer
     return [TwitterConsumer]
 
-consumers = MultiConsumer(load_consumer_plugins())
-consumers.connect()
-consumers.start()
+KeyboardInterrupt
+try:
+    consumers = MultiConsumer(load_consumer_plugins())
+    consumers.connect()
+    consumers.start()
+except KeyboardInterrupt as exc:
+    logging.warn('Caught keyboard interrupt, exiting...')
+    # Gracefully exit here for cleaner process moniotirng
+    raise SystemExit(0)
+
 

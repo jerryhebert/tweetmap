@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="tweet.css">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="tweets.css">
         <title>Tweet maps</title>
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         <script src="tweets.js"></script>
-
-    <style type="text/css">
-      html, body { height: 100%; margin: 0; padding: 0; }
-      #map { height: 100%; }
-    </style>
     </head>
     <body>
         <div id="tweetTemplate" class="tweetTemplate">
-            <span id="creator"></span> - <span id="timestamp"></span><br>
+            <span id="label"></span>  -  <span id="creator"></span> - <span id="timestamp"></span><br>
             <span id="message"></span>
         </div>
 
@@ -22,41 +18,28 @@
 
         <table cellspacing="0" cellpadding="0">
             <tr>
-                <td colspan="2">
+                <td>
                     <form id="searchForm">
-
-                    Lat: <input value="39.75944444" size="8" id="lat_input" type="text"></input>
-                    Lon: <input value="-84.19166667" size="8" id="lon_input" type="text"></input>
-                    Radius: <input value="10km" size="3" id="radius_input" type="text"></input>
-                    Tags: <input size="3" id="tags_input" type="text"></input>
-                    <input type="submit" name="Update">
+                    Tags: <input size="16" id="tags_input" type="text" onChange="updateTweets()"></input>
                     </form>
+                <td>
+                    <span id="status" />
+                </td>
                 </td>
             </tr>
             <tr>
                 <td valign="top">
-                    <div id="map"></div>
+                    <div style="width: 500px; height: 500px;" id="map"></div>
                 </td>
                 <td id="tweets" style="height: 100px; overflow-y: auto;">
                     ...
                 </td>
             </tr>
         </table>
-        <span id="status" />
 
-    <script type="text/javascript">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxNnmBhkZS1fqF_7cfQt1Uv0qsdkGrQxY&callback=initMap"
+        async defer></script>
 
-var map;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 8
-  });
-}
-
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxNnmBhkZS1fqF_7cfQt1Uv0qsdkGrQxY&callback=initMap">
-    </script>
     </body>
 </html>
 

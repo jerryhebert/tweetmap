@@ -60,7 +60,5 @@ def create_event():
     index.index(*[request.json[field] for field in required_fields])
     return 'ok'
 
-app.debug = True
-app.run()
-
+app.run(use_reloader=False)
 

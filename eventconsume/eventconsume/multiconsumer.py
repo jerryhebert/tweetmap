@@ -8,7 +8,6 @@ from consumer import Consumer
 class MultiConsumer(Consumer):
     def __init__(self, consumers):
         self.all_consumers = {c(): {'alive': True, 'class': c} for c in consumers}
-        print self.all_consumers
 
     @property
     def consumers(self):

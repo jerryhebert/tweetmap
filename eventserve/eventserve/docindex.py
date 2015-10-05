@@ -61,18 +61,32 @@ class DocIndex(object):
             }
         if geocell:
             base_query['query']['filtered']['filter'] = {
+                "geo_distance": {
+                    "_cache": True,
+                    "distance": geocell.radius,
+                    "distance_type": "plane",
+                    "location": {
+                        "lat":  geocell.lat,
+                        "lon": geocell.lon
+                    }
+                }
+            }
+
+            # geohash cell produces incorrect results for reasons I don't understand
+            """
+            base_query['query']['filtered']['filter'] = {
                 "geohash_cell": {
                     "_cache": True,
                     "precision": geocell.radius,
                     "location": {
                         "lat":  geocell.lat,
                         "lon": geocell.lon
-                    },
-                    "neighbors": True
+                    }
                 }
             }
+            """
 
-        return base_query
+            return base_query
 
     def index(self, message, creator, location, site, timestamp, ttl=60*60*24*7):
         self.es.index(self.index_name, self.doc_type, ttl=ttl, body={
