@@ -16,7 +16,7 @@ data coming out of the plugins and persist this into Elasticsearch.
 This package is a simple HTTP API on top of events. Two endpoints are
 supported:
 
-    ```GET /events```
+    GET /events
 
 This takes the following query parameters to aid in filtering out the
 events:
@@ -27,7 +27,7 @@ events:
 A list of events within this region that match the given keywords is
 then returned.
 
-    ```POST /events/```
+    POST /events/
 
 This takes a JSON object with the following values:
     creator - the person who created this event
