@@ -111,7 +111,6 @@ function updateTweets() {
     // better. Even better would be to use the real bounding box within
     // the ES query but this may have performance implications
     radius = haversine(swLat, swLng, neLat, neLng) / 2;
-    console.log('got radius: ' + radius);
 
     $.get('http://jerryhebert.me/events_api/events', {
         lat: lat,

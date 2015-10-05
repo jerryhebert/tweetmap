@@ -6,6 +6,7 @@ from flask import Flask, redirect, request, jsonify, abort
 from eventserve.docindex import DocIndex, GeoCell, PageInfo
 
 app = Flask(__name__)
+app.config.from_object('eventserve.settings')
 
 @app.route('/')
 def root():
@@ -19,6 +20,7 @@ def get_events():
         size: the size of the page we request
         lat: the latitude of our geocell
         lon: the longitude of our geocell
+        distance: distance from the center to take
         tags: tags to filter by
     """
     page_from = request.args.get('from', 0)
@@ -26,6 +28,7 @@ def get_events():
     lat = request.args.get('lat')
     lon = request.args.get('lon')
     distance = request.args.get('distance', '10km')
+
     tags = request.args.get('tags', [])
     if tags:
         tags = tags.split()
@@ -50,6 +53,9 @@ def create_event():
         site
         timestamp
     """
+    if not request.json:
+        abort(400, "Invalid content type or request")
+
     required_fields = 'message', 'creator', 'location', 'site', 'timestamp'
 
     for field in required_fields:
@@ -60,5 +66,6 @@ def create_event():
     index.index(*[request.json[field] for field in required_fields])
     return 'ok'
 
-app.run(use_reloader=False)
+if __name__ == '__main__':
+    app.run(use_reloader=False)
 

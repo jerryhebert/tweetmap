@@ -7,10 +7,11 @@ FEATURES:
 [x] generalize consumer plugin config loading
 [ ] add reliability around consumers
 [x] explore geohash_prefix behavior
-[ ] add HAL flask plugin
 [x] set up nginx mapping so that eventserve can just bind to 127.0.0.1
 [ ] run flask through wsgi
 [ ] figure out how to clean up the form validation stuff in Flask
+[ ] figure out Flask test fixtures
+[ ] flush elasticsearch test index between test runs
 
 BUGS:
 [x] use date time of the object being indexed, not the time we created the ES record
@@ -18,7 +19,7 @@ BUGS:
     need to investigate potions for precision field and/or use geo_shape. I don't want to
     reset the index to test this since I have a nice amount of test data currently. would
     need to write a tool for this migration
-[ ] need to write lots of tests
+[/] need to write lots of tests
 
 
 

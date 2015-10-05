@@ -28,6 +28,10 @@ case $1 in
         source vpython/bin/activate
         pip install -r requirements.txt
         ;;
+    test)
+        source $VENV/bin/activate
+        PYTHONPATH="." exec python -m unittest discover
+        ;;
     run)
         source $VENV/bin/activate
         PYTHONPATH="." exec python eventserve/app.py

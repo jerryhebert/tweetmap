@@ -1,4 +1,5 @@
 import elasticsearch
+from eventserve.settings import ES_INDEX
 
 class GeoCell(object):
     """
@@ -25,8 +26,8 @@ class DocIndex(object):
     Elasticsearch but from here we could consider wiring in
     other index types.
     """
-    def __init__(self, index='events', doc_type='event'):
-        self.index_name = index
+    def __init__(self, doc_type='event'):
+        self.index_name = ES_INDEX
         self.doc_type = doc_type
         self.es = elasticsearch.client.Elasticsearch()
 
@@ -34,7 +35,7 @@ class DocIndex(object):
         if not page_info:
             page_info = PageInfo()
         query = self._query_dsl(tags, geocell)
-        return self.es.search(index='events', doc_type='event', body=query,
+        return self.es.search(index=self.index_name, doc_type=self.doc_type, body=query,
                               from_=page_info.start, size=page_info.size)
 
     @staticmethod
@@ -86,7 +87,7 @@ class DocIndex(object):
             }
             """
 
-            return base_query
+        return base_query
 
     def index(self, message, creator, location, site, timestamp, ttl=60*60*24*7):
         self.es.index(self.index_name, self.doc_type, ttl=ttl, body={
