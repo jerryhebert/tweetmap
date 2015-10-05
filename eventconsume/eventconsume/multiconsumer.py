@@ -6,6 +6,11 @@ from eventconsume.consumers.twitter import TwitterConsumer
 from consumer import Consumer
 
 class MultiConsumer(Consumer):
+    """
+    Multiconsumer class to manage multiple event consumers firing.
+    
+    TODO/BUG: current implementation does not actually run them all, it only supports one.
+    """
     def __init__(self, consumers):
         self.all_consumers = {c(): {'alive': True, 'class': c} for c in consumers}
 

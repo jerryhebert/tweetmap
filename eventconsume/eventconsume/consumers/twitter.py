@@ -46,6 +46,10 @@ class TwitterStreamListener(tweepy.StreamListener):
 
 
 class TwitterConsumer(Consumer):
+    """
+    A consumer for twitter events. Reads the twitter streaming API
+    and fires off events to the stream listener whenever they occur.
+    """
     def __init__(self):
         super(TwitterConsumer, self).__init__()
 

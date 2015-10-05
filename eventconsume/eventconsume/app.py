@@ -1,7 +1,5 @@
 """
-Loads all consumer plugins and sets up promises for each of them
-such that whenever we have an event ready, the reactor can handle
-this with the appropriate event persistence call.
+Loads all consumer plugins into a multiconsumer and runs them all.
 """
 
 from multiconsumer import MultiConsumer
