@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APP_ROOT=/home/ubuntu/tweetmap/eventserve
+APP_ROOT=$HOME/tweetmap/eventserve
 VENV=${APP_ROOT}/vpython
 
 function usage() {

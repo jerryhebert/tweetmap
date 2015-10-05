@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APP_ROOT=/home/ubuntu/tweetmap/eventconsume
+APP_ROOT=$HOME/tweetmap/eventconsume
 VENV=${APP_ROOT}/vpython
 
 function usage() {
@@ -23,10 +23,11 @@ case $1 in
     build)
         if [ -e $VENV ];  then
             rm -rf $VENV
-            deactivate
         fi
+
         virtualenv $VENV
-        source vpython/bin/activate
+        source ./vpython/bin/activate
+        pip install pip==7.1.2
         pip install -r requirements.txt
         ;;
     run)
