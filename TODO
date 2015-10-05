@@ -1,6 +1,6 @@
 FEATURES:
-[ ] set up twisted consumer as a plugin
-[ ] refactor for async management of multiple consumers
+[x] set up twitter consumer as a plugin
+[/] refactor for async management of multiple consumers
 [ ] add logging
 [x] handle paged requests
 [ ] rename repo and docs to be more generic
@@ -18,5 +18,7 @@ BUGS:
     need to investigate potions for precision field and/or use geo_shape. I don't want to
     reset the index to test this since I have a nice amount of test data currently. would
     need to write a tool for this migration
+[ ] need to write lots of tests
+
 
 

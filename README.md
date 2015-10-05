@@ -13,18 +13,30 @@ data coming out of the plugins and persist this into Elasticsearch.
 
 ## EventServe
 
-This package is a simple HTTP API on top of events. The only endpoint
-currently supported is:
-    GET /events
+This package is a simple HTTP API on top of events. Two endpoints are
+supported:
+
+    ```GET /events```
+
 This takes the following query parameters to aid in filtering out the
 events:
     tags - a list of tags to filter our events by
     lat - the latitude for our cell center
     lon - the longitude for our cell center
     radius - the radius from the center that we will select events from
-
 A list of events within this region that match the given keywords is
 then returned.
+
+    ```POST /events/```
+
+This takes a JSON object with the following values:
+    creator - the person who created this event
+    message - a message associated with the event
+    location - the lon,lat pair for this event
+    timestamp - the timestamp(+ms) when it was created
+    site - the site from which this event came
+
+These data are the indexed for querying.
 
 ## EventClient
 
@@ -83,6 +95,9 @@ cd eventserve
 ./manage.sh build
 ./manage.sh run
 ```
+
+The `supervisor.conf` and `nginx.conf` used for this have been placed
+in`etc`.
 
 ## Plugins
 
