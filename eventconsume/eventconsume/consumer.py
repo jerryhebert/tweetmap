@@ -2,6 +2,9 @@ import abc
 import os
 import sys
 import yaml
+import logging
+
+from eventconsume.exceptions import ConsumerConfigError
 
 class Consumer(object):
     """
@@ -25,10 +28,14 @@ class Consumer(object):
         try:
             base, fname = os.path.split(os.path.realpath(m.__file__))
             fname = os.path.splitext(fname)[0] + '.yml'
-            with open(os.path.join(base, fname)) as config_file:
+            final = os.path.join(base, fname)
+            with open(final) as config_file:
                 config = yaml.load(config_file.read())
         except (IOError, ValueError) as exc:
-            raise # for now
+            logging.error(('Failed to find config file for module: ' + self.__class__.__module__ +
+                'Configure the following file before using this plugin:\n' +
+                '\t' + final))
+            raise ConsumerConfigError
 
         return config
 

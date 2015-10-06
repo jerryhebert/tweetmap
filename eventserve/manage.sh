@@ -26,6 +26,7 @@ case $1 in
         fi
         virtualenv $VENV
         source vpython/bin/activate
+        pip install pip==7.1.2
         pip install -r requirements.txt
         ;;
     test)

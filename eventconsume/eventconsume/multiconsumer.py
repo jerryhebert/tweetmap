@@ -3,16 +3,24 @@ import logging
 import json
 
 from eventconsume.consumers.twitter import TwitterConsumer
-from consumer import Consumer
+from eventconsume.consumer import Consumer
+from eventconsume.exceptions import ConsumerConfigError
 
 class MultiConsumer(Consumer):
     """
     Multiconsumer class to manage multiple event consumers firing.
-    
+
     TODO/BUG: current implementation does not actually run them all, it only supports one.
     """
     def __init__(self, consumers):
-        self.all_consumers = {c(): {'alive': True, 'class': c} for c in consumers}
+        consumer_instances = []
+        for c in consumers:
+            try:
+                consumer_instances.append(c())
+            except ConsumerConfigError as exc:
+                logging.error('Config error detected, disabling consumer: ' + c.__name__)
+
+        self.all_consumers = {c: {'alive': True, 'class': c} for c in consumer_instances}
 
     @property
     def consumers(self):
@@ -32,7 +40,7 @@ class MultiConsumer(Consumer):
             except Exception as exc:
                 logging.error("Failed to start consumer, marking as dead: " + str(exc))
                 self.remove(consumer)
-                
+
 
     def connect(self):
         for consumer in self.consumers:
@@ -58,8 +66,12 @@ class MultiConsumer(Consumer):
             'site': event.site,
             'timestamp': event.timestamp
         }
-        response = requests.post('http://localhost:5000/events', data=json.dumps(body),
-                                 headers={'Content-Type': 'application/json'})
+        try:
+            events_api = 'http://localhost:5000/events'
+            response = requests.post(events_api, data=json.dumps(body),
+                                     headers={'Content-Type': 'application/json'})
+        except requests.RequestException as exc:
+            logging.error('Failed to connect to API: host={}, exc={}'.format(events_api, exc))
 
     @staticmethod
     def _on_failure(context):
