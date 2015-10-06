@@ -111,12 +111,13 @@ function updateTweets() {
     // but this will will get some false positives which I think is
     // better. Even better would be to use the real bounding box within
     // the ES query but this may have performance implications
+    console.log(swLat, swLng, neLat, neLng);
     radius = haversine(swLat, swLng, neLat, neLng) / 2;
 
     $.get('http://jerryhebert.me/events_api/events', {
         lat: lat,
-        lon: lng,
-        distance: Math.trunc(radius).toString() + "km",
+        lon: lng,           // this gets us precision around 11m
+        distance: (Math.trunc(radius * 10000) / 10000).toString() + "km",
         tags: tags,
         size: 250
     }, function (data) {
