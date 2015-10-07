@@ -78,7 +78,7 @@ class DocIndex(object):
             base_query['query']['filtered']['filter'] = {
                 "geohash_cell": {
                     "_cache": True,
-                    "precision": geocell.radius,
+                    "precision": 1,
                     "location": {
                         "lat":  geocell.lat,
                         "lon": geocell.lon

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APP_ROOT=$HOME/tweetmap/eventserve
+APP_ROOT=`pwd`
 VENV=${APP_ROOT}/vpython
 
 function usage() {
